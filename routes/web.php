@@ -1,4 +1,9 @@
 <?php
+# @Date:   2019-11-05T14:53:59+00:00
+# @Last modified time: 2019-11-19T15:12:52+00:00
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +23,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/home', 'Admin\HomeController@index')->name('admin.home');
+Route::get('/user/home', 'User\HomeController@index')->name('user.home');
+//Route::get('/doctor/home', 'Doctor\HomeController@index')->name('doctor.home');
+//Route::get('/patient/home', 'Patient\HomeController@index')->name('patient.home');
