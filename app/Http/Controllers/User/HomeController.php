@@ -9,6 +9,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Visit;
+use App\Role;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -19,6 +22,14 @@ class HomeController extends Controller
       $this->middleware('role:user');
   }
   public function index() {
+
     return view('user.home');
+  }
+
+  public function show() {
+    $visit = Visit::findOrFail($id);
+    return view('user.visits.show')->with([
+      'visits' =>$visits
+    ]);
   }
 }

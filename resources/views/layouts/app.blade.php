@@ -66,6 +66,15 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                              <a href="{{route('admin.visits.index')}}" class="nav-link">Visits</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="{{route('admin.patients.index')}}" class="nav-link">Patients</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="{{route('admin.doctors.index')}}" class="nav-link">Doctors</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>

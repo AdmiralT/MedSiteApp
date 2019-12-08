@@ -11,6 +11,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Role;
+use App\Doctor;
+use App\Patient;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -42,9 +44,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function doctor() {
+      return $this->hasOne('App\Doctor');
+    }
+
+    public function patient(){
+      return $this->hasOne('App\Patient');
+    }
+
     public function roles() {
       return $this->belongsToMany('App\Role', 'user_role');
     }
+
 
     public function authorizeRoles($roles) {
       if (is_array($roles)) {

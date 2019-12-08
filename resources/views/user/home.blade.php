@@ -1,10 +1,4 @@
 @extends('layouts.app')
-# @Date:   2019-11-19T15:11:55+00:00
-# @Last modified time: 2019-11-19T15:13:18+00:00
-
-
-
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -18,8 +12,51 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                  Hello {{Auth::user()->name}}.
+                </br>
+                    You are logged in as an ordinary user.</br>
+                </br>
+                    <a href="{{route('user.doctors.index')}}"> View Available Doctors </a>
 
-                    You are logged in as an ordinary user.
+
+                   {{-- </br>
+                </br>
+                <h2>
+                  Visits
+                </h2>
+                <table class="table hover-table">
+                  <tbody>
+                  @if(count($visits) == 0)
+                    <p>You have no documented visits. </p>
+
+                  @else
+                    @foreach ($visits as $visit)
+                      <tr>
+                        <td>Date</td>
+                        <td>{{$visit->date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td>{{$visit->time}}</td>
+                      </tr>
+                      <tr>
+                        <td>Duration</td>
+                        <td>{{$visit->duration}}</td>
+                      </tr>
+                      <tr>
+                        <td>Cost</td>
+                        <td>{{$visit->cost}}</td>
+                      </tr>
+                      <tr>
+                        <td>Doctor</td>
+                        <td>{{$visit->doctor->id}}</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  @endforeach
+                @endif  --}}
+
+
                 </div>
             </div>
         </div>
