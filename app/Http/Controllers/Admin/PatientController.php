@@ -9,7 +9,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Role;
+use App\User;
+use App\Doctor;
+use App\Patient;
 class PatientController extends Controller
 {
   public function __construct()
@@ -33,7 +36,10 @@ class PatientController extends Controller
      */
     public function create()
     {
-    
+      $users = User::all();
+      return view('admin.patients.create')->with([
+        'users' => $users
+      ]);
     }
 
     /**
@@ -44,7 +50,32 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'name'=> 'required|max:191',
+        'email'=> 'required|max:191',
+        'password'=> 'required|max:191',
+        'address'=> 'required|max:191',
+        'phoneNo'=> 'required|max:191',
+        'insurance'=> 'required',
+        'insuranceName' =>'required|max:191'
+      ]);
+
+      $user = new User();
+      $user->name= $request->input('name');
+      $user->password = $request->input('password');
+      $user->email= $request->input('email');
+      $user->address = $request->input('address');
+      $user->phoneNo = $request->input('phoneNo');
+      $user->save();
+
+      $patient = new Patient();
+      $patient->insurance = $request->input('insurance');
+      $patient->insuranceName = $request->input('insuranceName');
+      $patient->user_id = $user->id;
+      $patient->save();
+
+      return redirect()->route('admin.patients.index');
+
     }
 
     /**
@@ -55,7 +86,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
+      $patient = Patient::findOrFail($id);
+      return view('admin.patients.show')->with([
+        'patient' => $patient
+      ]);
     }
 
     /**
@@ -66,7 +100,10 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
+      $patient = Patient::findOrFail($id);
+      return view('admin.patients.edit')->with([
+        'patient' => $patient
+      ]);
     }
 
     /**
@@ -78,17 +115,35 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+      $patient = Patient::findOrFail($id);
+      $user = User::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+      $request->validate([
+        'name'=> 'required|max:191',
+        'email'=> 'required|max:191',
+        'password'=> 'required|max:191',
+        'address'=> 'required|max:191',
+        'phoneNo' => 'required|max:8',
+        'insurance' => 'required',
+        'insuranceName' => 'required|max:191'
+    ]);
+
+    $patient = new Patient();
+    $user->name = $request->input('name');
+    $user->email= $request->input('email');
+    $user->password = $request->input('password');
+    $user->address = $request->input('address');
+    $user->phoneNo = $request->input('phoneNo');
+    $patient->insurance = $request->input('insurance');
+    $patient->insuranceName = $request->input('insuranceName');
+    $patient->save();
+
+    return redirect()->route('admin.patients.index');
+}
     public function destroy($id)
     {
-        //
+      $patient = Patient::findOrFail($id);
+      $patient->delete();
+      return redirect()->route('admin.patients.index');
     }
 }

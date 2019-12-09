@@ -42,12 +42,18 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="startDate">Patient</label>
-                <input type="text" class="form-control" id="startDate" name="startDate" value="{{old('startDate')}}" />
+                <label for="patient">Patient</label>
+                <select name="patient_id">
+                  @foreach ($patients as $patient)
+                    <option value="{{$patient->id}}" {{(old('patient_id') == $patient->id) ? "selected" : ""}}>
+                      {{$patient->name}}
+                    </option>
+                  @endforeach
+                </select>
               </div>
               <div class="form-group">
-                <label for="startDate">Cost</label>
-                <input type="text" class="form-control" id="startDate" name="startDate" value="{{old('startDate')}}" />
+                <label for="cost">Cost</label>
+                <input type="text" class="form-control" id="cost" name="cost" value="{{old('cost')}}" />
               </div>
               <a href="{{route('admin.visits.index')}}" class="btn btn-danger">Cancel</a>
               <button type="submit" class="btn btn-primary float-right">Submit</button>
